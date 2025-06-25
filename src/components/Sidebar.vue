@@ -48,7 +48,7 @@
         v-model="isDark"
         :label="!rail ? 'Dark Mode' : ''"
         hide-details
-        inset
+        
         @change="toggleTheme"
       />
     </div>
