@@ -19,7 +19,7 @@
           </v-btn>
         </template>
 
-        <v-list-item-title v-if="!rail">Star Wars</v-list-item-title>
+        <v-list-item-title class="text-center" v-if="!rail"><img src="/images/star-wars-4.svg" alt="Star Wars Logo" height="50" /></v-list-item-title>
       </v-list-item>
     </v-list>
 
