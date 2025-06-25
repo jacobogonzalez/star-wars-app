@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue' // 'computed' might not be strictly necessary here after changes, but keeping it doesn't hurt.
-import { useStarWarsApi, type StarWarsEntity } from '@/composables/useStarWarsApi'
-import DataTable from '@/components/DataTable.vue' // Adjust the path if necessary
-import DetailModal from '@/components/DetailsModal.vue'
+import { ref, computed } from 'vue'
+import { useStarWarsApi, type StarWarsEntity } from '../composables/useStarWarsApi'
+import DataTable from '../components/DataTable.vue'
+import DataList from '../components/DataList.vue'
+import DetailModal from '../components/DetailsModal.vue'
 
-// Define the headers for the Vuetify table specific to Planets
 const headers = [
   { title: 'Nombre', key: 'name', sortable: true },
   { title: 'Período Rotacional', key: 'rotation_period', sortable: true },
@@ -15,63 +15,85 @@ const headers = [
   { title: 'Terreno', key: 'terrain', sortable: true },
   { title: 'Superficie Acuática', key: 'surface_water', sortable: true },
   { title: 'Población', key: 'population', sortable: true },
-  { title: 'Fecha de Creación', key: 'created', sortable: true }, // Keep if relevant for planets
-];
+  { title: 'Fecha de Creación', key: 'created', sortable: true },
+]
 
 const {
-  results,          // Now holds the filtered and sorted data
-  totalResults,     // Total count of filtered and sorted items
+  results,
   loading,
   error,
-  search,           // Will be updated by DataTable's search field
-  sortKey,          // DataTable's sorting will update these
-  sortAsc,          // DataTable's sorting will update these
+  search,
+  sortKey,
+  sortAsc,
   selectedItem,
   loadingDetail,
   errorDetail,
   fetchDetail,
-} = useStarWarsApi('planets') // **Important: Changed to 'planets'**
+} = useStarWarsApi('planets')
 
-// The `pagedResults` computed property and manual pagination buttons are no longer needed
-// because DataTable handles client-side pagination.
+// Modal
 const showDetailModal = ref(false)
 function onRowClick(item: StarWarsEntity) {
-  // `item` will be the full StarWarsEntity object (planet data)
   fetchDetail(extractIdFromUrl(item.url))
   showDetailModal.value = true
 }
-
 function extractIdFromUrl(url: string): string {
   const parts = url.split('/')
-  // This logic is generic and works for both people and planets
   return parts[parts.length - 1] || parts[parts.length - 2]
 }
+
+// 🔁 Alternar entre tabla y lista
+const viewMode = ref<'table' | 'list'>('table')
+
+// 📄 Paginación
+const itemsPerPage = 10
+const page = ref(1)
+const paginatedItems = computed(() => {
+  const start = (page.value - 1) * itemsPerPage
+  return results.value.slice(start, start + itemsPerPage)
+})
+const pageCount = computed(() => Math.ceil(results.value.length / itemsPerPage))
 </script>
 
 <template>
-  <v-container>
-    <h1>Planets</h1>
-<!-- 
-    <div v-if="loading && results.length === 0 && !error">Cargando datos iniciales...</div>
-    <div v-if="error">Error: {{ error }}</div>
-    <div v-if="!loading && results.length === 0 && !error">No hay resultados disponibles.</div> -->
+  <v-container class="d-flex flex-column h-100">
+    <div class="d-flex justify-space-between align-center mb-4">
+      <h1 class="text-h5 font-weight-bold">Planets</h1>
+      <v-btn
+        icon
+        variant="text"
+        :title="viewMode === 'table' ? 'Cambiar a lista' : 'Cambiar a tabla'"
+        @click="viewMode = viewMode === 'table' ? 'list' : 'table'"
+      >
+        <v-icon>{{ viewMode === 'table' ? 'mdi-view-list' : 'mdi-table' }}</v-icon>
+      </v-btn>
+    </div>
 
-
-    <DataTable
-      :items="results"
+    <component
+      :is="viewMode === 'table' ? DataTable : DataList"
+      :items="paginatedItems"
+      :headers="headers"
       :loading="loading"
       :search="search"
-      @update:search="(value: any) => search = value"
+      :sort-by="sortKey"
+      :sort-desc="!sortAsc"
+      @update:search="(val: string) => search = val"
+      @update:sort-by="(key: string) => sortKey = key"
+      @update:sort-desc="(desc: any) => sortAsc = !desc"
       @row-click="onRowClick"
     />
-    <DetailModal v-model:modelValue="showDetailModal" :item="selectedItem" :loading="loadingDetail"
-      :error="errorDetail" /> -->
-    <!-- <div v-if="loadingDetail" style="margin-top: 1rem;">Cargando detalles...</div>
-    <div v-if="errorDetail" style="color: red; margin-top: 1rem;">Error: {{ errorDetail }}</div>
 
-    <div v-if="selectedItem" style="margin-top: 1rem; border: 1px solid #ccc; padding: 1rem;">
-      <h2>Detalles de {{ selectedItem.name }}</h2>
-      <pre>{{ selectedItem }}</pre>
-    </div> -->
+    <v-pagination
+      v-model="page"
+      :length="pageCount"
+      class="mt-4 align-self-center"
+    />
+
+    <DetailModal
+      v-model:modelValue="showDetailModal"
+      :item="selectedItem"
+      :loading="loadingDetail"
+      :error="errorDetail"
+    />
   </v-container>
 </template>

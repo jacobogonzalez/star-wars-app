@@ -1,57 +1,87 @@
 <script setup lang="ts">
-import { ref } from 'vue' // Importa ref para controlar la visibilidad del modal
-import { useStarWarsApi, type StarWarsEntity } from '@/composables/useStarWarsApi'
-import DataTable from '@/components/DataTable.vue'
-import DetailModal from '@/components/DetailsModal.vue' // <-- Importa tu nuevo componente de modal
+import { ref, computed } from 'vue'
+import { useStarWarsApi, type StarWarsEntity } from '../composables/useStarWarsApi'
+import DataTable from '../components/DataTable.vue'
+import DataList from '../components/DataList.vue'
+import DetailModal from '../components/DetailsModal.vue'
 
 const headers = [
   { title: 'Nombre', key: 'name', sortable: true },
-  { title: 'Género', key: 'gender', sortable: true, class: 'd-none d-sm-table-cell' },
-  { title: 'Altura (cm)', key: 'height', sortable: true, class: 'd-none d-md-table-cell' },
-  { title: 'Peso (kg)', key: 'mass', sortable: true, class: 'd-none d-md-table-cell' },
+  { title: 'Género', key: 'gender', sortable: true },
+  { title: 'Altura (cm)', key: 'height', sortable: true },
+  { title: 'Peso (kg)', key: 'mass', sortable: true },
   { title: 'Fecha de Creación', key: 'created', sortable: true },
-];
+]
 
 const {
   results,
   loading,
   error,
   search,
+  sortKey,
+  sortAsc,
   selectedItem,
   loadingDetail,
   errorDetail,
   fetchDetail,
-} = useStarWarsApi('people') // **Important: Remains 'people'**
+} = useStarWarsApi('people')
 
-// --- Nuevo estado para controlar la visibilidad del modal ---
+// Modal
 const showDetailModal = ref(false)
-
 function onRowClick(item: StarWarsEntity) {
   fetchDetail(extractIdFromUrl(item.url))
-  showDetailModal.value = true // <-- Muestra el modal al hacer clic en la fila
+  showDetailModal.value = true
 }
-
 function extractIdFromUrl(url: string): string {
   const parts = url.split('/')
   return parts[parts.length - 1] || parts[parts.length - 2]
 }
+
+// 🔁 Alternar entre vista tabla y lista
+const viewMode = ref<'table' | 'list'>('table')
+
+// 📄 Paginación
+const itemsPerPage = 10
+const page = ref(1)
+const paginatedItems = computed(() => {
+  const start = (page.value - 1) * itemsPerPage
+  return results.value.slice(start, start + itemsPerPage)
+})
+const pageCount = computed(() => Math.ceil(results.value.length / itemsPerPage))
 </script>
 
 <template>
-  <div>
-    <h1>People</h1>
+  <div class="d-flex flex-column h-100">
+    <div class="d-flex justify-space-between align-center mb-4">
+      <h1 class="text-h5 font-weight-bold">People</h1>
+      <v-btn
+        icon
+        variant="text"
+        :title="viewMode === 'table' ? 'Cambiar a lista' : 'Cambiar a tabla'"
+        @click="viewMode = viewMode === 'table' ? 'list' : 'table'"
+      >
+        <v-icon>{{ viewMode === 'table' ? 'mdi-view-list' : 'mdi-table' }}</v-icon>
+      </v-btn>
+    </div>
 
-    <!-- <div v-if="loading && results.length === 0 && !error">Cargando datos iniciales...</div>
-    <div v-if="error">Error: {{ error }}</div>
-    <div v-if="!loading && results.length === 0 && !error">No hay resultados disponibles.</div> -->
-
-    <DataTable
+    <component
+      :is="viewMode === 'table' ? DataTable : DataList"
+      :items="paginatedItems"
       :headers="headers"
-      :items="results"
       :loading="loading"
       :search="search"
-      @update:search="(value: any) => search = value"
+      :sort-by="sortKey"
+      :sort-desc="!sortAsc"
+      @update:search="(val: string) => search = val"
+      @update:sort-by="(key: string) => sortKey = key"
+      @update:sort-desc="(desc: any) => sortAsc = !desc"
       @row-click="onRowClick"
+    />
+
+    <v-pagination
+      v-model="page"
+      :length="pageCount"
+      class="mt-4 align-self-center"
     />
 
     <DetailModal
