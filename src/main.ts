@@ -3,7 +3,7 @@ import './style.css'
 import router from './router'
 
 // Vuetify
-import 'vuetify/styles'
+import 'vuetify/lib/styles/main.sass'
 import '@mdi/font/css/materialdesignicons.css'  // <-- importa los iconos MDI
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
