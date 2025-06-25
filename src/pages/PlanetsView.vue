@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue' // 'computed' might not be strictly necessary here after changes, but keeping it doesn't hurt.
+import { computed, ref } from 'vue' // 'computed' might not be strictly necessary here after changes, but keeping it doesn't hurt.
 import { useStarWarsApi, type StarWarsEntity } from '@/composables/useStarWarsApi'
 import DataTable from '@/components/DataTable.vue' // Adjust the path if necessary
+import DetailModal from '@/components/DetailsModal.vue'
 
 // Define the headers for the Vuetify table specific to Planets
 const headers = [
@@ -33,10 +34,11 @@ const {
 
 // The `pagedResults` computed property and manual pagination buttons are no longer needed
 // because DataTable handles client-side pagination.
-
+const showDetailModal = ref(false)
 function onRowClick(item: StarWarsEntity) {
   // `item` will be the full StarWarsEntity object (planet data)
   fetchDetail(extractIdFromUrl(item.url))
+  showDetailModal.value = true
 }
 
 function extractIdFromUrl(url: string): string {
@@ -49,27 +51,27 @@ function extractIdFromUrl(url: string): string {
 <template>
   <div>
     <h1>Planets</h1>
-
+<!-- 
     <div v-if="loading && results.length === 0 && !error">Cargando datos iniciales...</div>
     <div v-if="error">Error: {{ error }}</div>
-    <div v-if="!loading && results.length === 0 && !error">No hay resultados disponibles.</div>
+    <div v-if="!loading && results.length === 0 && !error">No hay resultados disponibles.</div> -->
 
 
     <DataTable
-      v-if="results.length > 0 || loading" :headers="headers"
       :items="results"
       :loading="loading"
       :search="search"
       @update:search="(value: any) => search = value"
       @row-click="onRowClick"
     />
-
-    <div v-if="loadingDetail" style="margin-top: 1rem;">Cargando detalles...</div>
+    <DetailModal v-model:modelValue="showDetailModal" :item="selectedItem" :loading="loadingDetail"
+      :error="errorDetail" /> -->
+    <!-- <div v-if="loadingDetail" style="margin-top: 1rem;">Cargando detalles...</div>
     <div v-if="errorDetail" style="color: red; margin-top: 1rem;">Error: {{ errorDetail }}</div>
 
     <div v-if="selectedItem" style="margin-top: 1rem; border: 1px solid #ccc; padding: 1rem;">
       <h2>Detalles de {{ selectedItem.name }}</h2>
       <pre>{{ selectedItem }}</pre>
-    </div>
+    </div> -->
   </div>
 </template>

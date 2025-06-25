@@ -1,38 +1,34 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref } from 'vue' // Importa ref para controlar la visibilidad del modal
 import { useStarWarsApi, type StarWarsEntity } from '@/composables/useStarWarsApi'
-import DataTable from '@/components/DataTable.vue' // Ajusta la ruta si es necesario
+import DataTable from '@/components/DataTable.vue'
+import DetailModal from '@/components/DetailsModal.vue' // <-- Importa tu nuevo componente de modal
 
 const headers = [
   { title: 'Nombre', key: 'name', sortable: true },
-  { title: 'Género', key: 'gender', sortable: true },
-  { title: 'Altura (cm)', key: 'height', sortable: true },
-  { title: 'Peso (kg)', key: 'mass', sortable: true },
+  { title: 'Género', key: 'gender', sortable: true, class: 'd-none d-sm-table-cell' },
+  { title: 'Altura (cm)', key: 'height', sortable: true, class: 'd-none d-md-table-cell' },
+  { title: 'Peso (kg)', key: 'mass', sortable: true, class: 'd-none d-md-table-cell' },
   { title: 'Fecha de Creación', key: 'created', sortable: true },
 ];
 
 const {
-  results,          // Now holds the filtered and sorted data
-  totalResults,     // Total count of filtered and sorted items
+  results,
   loading,
   error,
-  search,           // Will be updated by DataTable's search field
-  sortKey,          // DataTable's sorting will update these
-  sortAsc,          // DataTable's sorting will update these
+  search,
   selectedItem,
   loadingDetail,
   errorDetail,
   fetchDetail,
-} = useStarWarsApi('people')
+} = useStarWarsApi('people') // **Important: Remains 'people'**
 
-// This computed property is no longer needed because DataTable handles pagination
-// const pagedResults = computed(() => {
-//   const start = (page.value - 1) * itemsPerPage
-//   return results.value.slice(start, start + itemsPerPage)
-// })
+// --- Nuevo estado para controlar la visibilidad del modal ---
+const showDetailModal = ref(false)
 
 function onRowClick(item: StarWarsEntity) {
   fetchDetail(extractIdFromUrl(item.url))
+  showDetailModal.value = true // <-- Muestra el modal al hacer clic en la fila
 }
 
 function extractIdFromUrl(url: string): string {
@@ -45,26 +41,24 @@ function extractIdFromUrl(url: string): string {
   <div>
     <h1>People</h1>
 
-    <div v-if="loading && results.length === 0">Cargando datos iniciales...</div>
+    <!-- <div v-if="loading && results.length === 0 && !error">Cargando datos iniciales...</div>
     <div v-if="error">Error: {{ error }}</div>
-    <!-- <div v-if="!loading && results.length === 0 && !error">No hay resultados disponibles.</div> -->
-
+    <div v-if="!loading && results.length === 0 && !error">No hay resultados disponibles.</div> -->
 
     <DataTable
-      v-if="!loading"
       :headers="headers"
-      :items="results"       :loading="loading"
+      :items="results"
+      :loading="loading"
       :search="search"
       @update:search="(value: any) => search = value"
       @row-click="onRowClick"
     />
 
-    <div v-if="loadingDetail" style="margin-top: 1rem;">Cargando detalles...</div>
-    <div v-if="errorDetail" style="color: red; margin-top: 1rem;">Error: {{ errorDetail }}</div>
-
-    <div v-if="selectedItem" style="margin-top: 1rem; border: 1px solid #ccc; padding: 1rem;">
-      <h2>Detalles de {{ selectedItem.name }}</h2>
-      <pre>{{ selectedItem }}</pre>
-    </div>
+    <DetailModal
+      v-model:modelValue="showDetailModal"
+      :item="selectedItem"
+      :loading="loadingDetail"
+      :error="errorDetail"
+    />
   </div>
 </template>
