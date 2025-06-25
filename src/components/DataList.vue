@@ -1,73 +1,38 @@
 <template>
-  <div class="pa-4">
- <div class="d-flex align-center justify-end mb-4" style="gap: 0.5rem; flex-wrap: wrap;">
-  <v-select
-    v-model="localSortCombined"
-    :items="combinedSortOptions"
-    label="Ordenar por"
-    hide-details
-    dense
-    style="max-width: 250px;"
-    variant="outlined"
-    density="compact"
-  />
-  
-  <v-text-field
-    v-model="localSearch"
-    label="Buscar..."
-    single-line
-    hide-details
-    variant="outlined"
-    dense
-    style="max-width: 250px;"
-    append-inner-icon="mdi-magnify"
-    density="compact"
-  />
-</div>
+  <v-card width="100%">
+    <v-card-text>
+      <div>
+        <div class="d-flex align-center justify-end mb-4" style="gap: 0.5rem; flex-wrap: wrap;">
+          <v-select v-model="localSortCombined" :items="combinedSortOptions" label="Ordenar por" hide-details dense
+            style="max-width: 250px;" variant="outlined" density="compact" />
 
-    <div>
-  <v-skeleton-loader
-    v-if="loading"
-    type="card@5"
-    class="mb-4"
-  />
-  
-  <v-row v-else dense>
-    <v-col
-      v-for="item in items"
-      :key="item.name"
-      cols="12"
-      sm="6"
-      md="4"
-    >
-      <v-card
-        class="ma-2"
-        outlined
-        elevation="2"
-        hover
-        ripple
-        @click="$emit('row-click', item)"
-        style="cursor: pointer;"
-      >
-        <v-card-title>{{ item.name }}</v-card-title>
-        <v-card-subtitle class="grey--text text--darken-1">
-          {{ item.created }}
-        </v-card-subtitle>
-      </v-card>
-    </v-col>
-  </v-row>
+          <v-text-field v-model="localSearch" label="Buscar..." single-line hide-details variant="outlined" dense
+            style="max-width: 250px;" append-inner-icon="mdi-magnify" density="compact" />
+        </div>
 
-  <v-alert
-    v-if="!loading && items.length === 0"
-    type="info"
-    border="start"
-    variant="tonal"
-    class="mt-4"
-  >
-    No hay resultados.
-  </v-alert>
-</div>
-  </div>
+        <div>
+          <v-skeleton-loader v-if="loading" type="card@5" class="mb-4" />
+
+          <v-row v-else dense>
+            <v-col v-for="item in items" :key="item.name" cols="12" sm="6" md="4">
+              <v-card class="ma-2" outlined elevation="2" hover ripple @click="$emit('row-click', item)"
+                style="cursor: pointer;">
+                <v-card-title>{{ item.name }}</v-card-title>
+                <v-card-subtitle class="grey--text text--darken-1">
+                  {{ item.created }}
+                </v-card-subtitle>
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-alert v-if="!loading && items.length === 0" type="info" border="start" variant="tonal" class="mt-4">
+            No hay resultados.
+          </v-alert>
+        </div>
+      </div>
+    </v-card-text>
+  </v-card>
+
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue'

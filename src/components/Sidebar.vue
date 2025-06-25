@@ -39,38 +39,8 @@
       />
     </v-list>
 
-    <!-- Pushes footer to bottom -->
-    <v-spacer />
-
-    <!-- Footer toggle -->
-    <v-divider />
-    <div class="pa-2">
-      <v-switch
-        v-model="isDark"
-        :label="!rail ? 'Dark Mode' : ''"
-        hide-details
-        
-        @change="toggleTheme"
-      />
-    </div>
   </v-navigation-drawer>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-import { useTheme } from 'vuetify'
-
-const theme = useTheme()
-
-const isDark = computed({
-  get: () => theme.global.current.value.dark,
-  set: (val) => (theme.global.name.value = val ? 'dark' : 'light'),
-})
-
-const toggleTheme = () => {
-  theme.global.name.value = isDark.value ? 'dark' : 'light'
-}
-</script>
 
 <script>
 export default {
