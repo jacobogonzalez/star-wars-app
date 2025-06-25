@@ -25,24 +25,48 @@
   />
 </div>
 
-    <!-- Lista -->
-    <v-list two-line>
-      <v-skeleton-loader
-        v-if="loading"
-        type="list-item@5"
-      />
-      <v-list-item
-        v-for="item in items"
-        :key="item.name"
+    <div>
+  <v-skeleton-loader
+    v-if="loading"
+    type="card@5"
+    class="mb-4"
+  />
+  
+  <v-row v-else dense>
+    <v-col
+      v-for="item in items"
+      :key="item.name"
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <v-card
+        class="ma-2"
+        outlined
+        elevation="2"
+        hover
+        ripple
         @click="$emit('row-click', item)"
+        style="cursor: pointer;"
       >
-        <v-list-item-title>{{ item.name }}</v-list-item-title>
-        <v-list-item-subtitle>{{ item.created }}</v-list-item-subtitle>
-      </v-list-item>
-      <v-alert v-if="!loading && items.length === 0" type="info" border="start" variant="tonal">
-        No hay resultados.
-      </v-alert>
-    </v-list>
+        <v-card-title>{{ item.name }}</v-card-title>
+        <v-card-subtitle class="grey--text text--darken-1">
+          {{ item.created }}
+        </v-card-subtitle>
+      </v-card>
+    </v-col>
+  </v-row>
+
+  <v-alert
+    v-if="!loading && items.length === 0"
+    type="info"
+    border="start"
+    variant="tonal"
+    class="mt-4"
+  >
+    No hay resultados.
+  </v-alert>
+</div>
   </div>
 </template>
 <script setup lang="ts">
