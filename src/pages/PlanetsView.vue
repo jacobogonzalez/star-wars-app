@@ -4,6 +4,7 @@ import { useStarWarsApi, type StarWarsEntity } from '../composables/useStarWarsA
 import DataTable from '../components/DataTable.vue'
 import DataList from '../components/DataList.vue'
 import DetailModal from '../components/DetailsModal.vue'
+import HeaderWithViewToggle from '../components/HeaderWithViewToggle.vue'
 
 const headers = [
   { title: 'Nombre', key: 'name', sortable: true },
@@ -56,18 +57,12 @@ const pageCount = computed(() => Math.ceil(results.value.length / itemsPerPage))
 </script>
 
 <template>
-  <v-container class="d-flex flex-column h-100">
-    <div class="d-flex justify-space-between align-center mb-4">
-      <h1 class="text-h5 font-weight-bold">Planets</h1>
-      <v-btn
-        icon
-        variant="text"
-        :title="viewMode === 'table' ? 'Cambiar a lista' : 'Cambiar a tabla'"
-        @click="viewMode = viewMode === 'table' ? 'list' : 'table'"
-      >
-        <v-icon>{{ viewMode === 'table' ? 'mdi-view-list' : 'mdi-table' }}</v-icon>
-      </v-btn>
-    </div>
+  <div class="d-flex flex-column h-100">
+    <HeaderWithViewToggle
+      title="Planets"
+      :viewMode="viewMode"
+      @update:viewMode="mode => viewMode = mode"
+    />
 
     <component
       :is="viewMode === 'table' ? DataTable : DataList"
@@ -84,6 +79,7 @@ const pageCount = computed(() => Math.ceil(results.value.length / itemsPerPage))
     />
 
     <v-pagination
+    v-if="viewMode === 'list'"
       v-model="page"
       :length="pageCount"
       class="mt-4 align-self-center"
@@ -95,5 +91,5 @@ const pageCount = computed(() => Math.ceil(results.value.length / itemsPerPage))
       :loading="loadingDetail"
       :error="errorDetail"
     />
-  </v-container>
+  </div>
 </template>

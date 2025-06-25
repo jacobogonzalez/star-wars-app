@@ -24,15 +24,20 @@ const handleRowClick = (event: Event, { item }: { item: any }) => {
 <template>
   <v-card width="100%">
     <v-card-text>
-      <v-text-field
-        :model-value="props.search"
-        @update:model-value="value => emit('update:search', value as string)"
-        label="Buscar..."
-        single-line
-        hide-details
-        variant="solo-filled"
-        class="mb-4"
-      ></v-text-field>
+      <div class="d-flex justify-end mb-4">
+        <v-text-field
+          :model-value="props.search"
+          @update:model-value="value => emit('update:search', value as string)"
+          label="Buscar..."
+          single-line
+          hide-details
+          variant="outlined"
+          dense
+          style="max-width: 250px;"
+          append-inner-icon="mdi-magnify"
+          density="compact"
+        ></v-text-field>
+      </div>
 
       <v-data-table
         width="100%"
