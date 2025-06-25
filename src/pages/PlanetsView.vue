@@ -49,7 +49,7 @@ function extractIdFromUrl(url: string): string {
 </script>
 
 <template>
-  <div>
+  <v-container>
     <h1>Planets</h1>
 <!-- 
     <div v-if="loading && results.length === 0 && !error">Cargando datos iniciales...</div>
@@ -73,5 +73,5 @@ function extractIdFromUrl(url: string): string {
       <h2>Detalles de {{ selectedItem.name }}</h2>
       <pre>{{ selectedItem }}</pre>
     </div> -->
-  </div>
+  </v-container>
 </template>

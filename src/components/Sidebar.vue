@@ -2,6 +2,7 @@
   <v-navigation-drawer
     v-model="drawer"
     :rail="rail"
+    rail-width="72"
     permanent
     app
   >

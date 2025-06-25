@@ -22,7 +22,7 @@ const handleRowClick = (event: Event, { item }: { item: any }) => {
 </script>
 
 <template>
-  <v-card>
+  <v-card width="100%">
     <v-card-text>
       <v-text-field
         :model-value="props.search"
@@ -35,6 +35,7 @@ const handleRowClick = (event: Event, { item }: { item: any }) => {
       ></v-text-field>
 
       <v-data-table
+        width="100%"
         :headers="headers"
         :items="items"
         :loading="loading"
