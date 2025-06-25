@@ -25,6 +25,18 @@ export function useStarWarsApi(entity: 'people' | 'planets') {
   const loadingDetail = ref(false)
   const errorDetail = ref<string | null>(null)
 
+    function formatDate(dateStr: string): string {
+    if (!dateStr) return ''
+    const date = new Date(dateStr)
+    return new Intl.DateTimeFormat('es-ES', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(date)
+  }
+  
   // Fetch solo una vez al cargar o cambiar entidad
   async function fetchData() {
     loading.value = true
@@ -35,7 +47,12 @@ export function useStarWarsApi(entity: 'people' | 'planets') {
         if (!res.ok) throw new Error(`Error ${res.status}`)
         return res.json()
       })
-      rawData.value = data
+      // Mapear y formatear 'created' en cada item
+      rawData.value = data.map((item: StarWarsEntity) => ({
+        ...item,
+        created: formatDate(item.created),
+        edited: formatDate(item.edited),
+      }))
     } catch (err: any) {
       error.value = err.message || 'Error al obtener datos'
       rawData.value = []
@@ -90,7 +107,12 @@ export function useStarWarsApi(entity: 'people' | 'planets') {
         return res.json()
       })
 
-      selectedItem.value = data
+      // Formatear la fecha en detalle también
+      selectedItem.value = {
+        ...data,
+        created: formatDate(data.created),
+        edited: formatDate(data.edited),
+      }
     } catch (err: any) {
       errorDetail.value = err.message || 'Error al obtener detalles'
     } finally {

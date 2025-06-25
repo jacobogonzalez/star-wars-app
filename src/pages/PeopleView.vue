@@ -52,40 +52,21 @@ const pageCount = computed(() => Math.ceil(results.value.length / itemsPerPage))
 </script>
 
 <template>
-  <div class="d-flex flex-column h-100">
-     <HeaderWithViewToggle
-      title="People"
-      :viewMode="viewMode"
-      @update:viewMode="mode => viewMode = mode"
-    />
-    
+  <div class="d-flex flex-column h-100 pa-4">
+    <HeaderWithViewToggle title="People" :viewMode="viewMode" @update:viewMode="mode => viewMode = mode" />
 
-    <component
-      :is="viewMode === 'table' ? DataTable : DataList"
-      :items="paginatedItems"
-      :headers="headers"
-      :loading="loading"
-      :search="search"
-      :sort-by="sortKey"
-      :sort-desc="!sortAsc"
-      @update:search="(val: string) => search = val"
-      @update:sort-by="(key: string) => sortKey = key"
-      @update:sort-desc="(desc: any) => sortAsc = !desc"
-      @row-click="onRowClick"
-    />
+    <v-alert v-if="error" type="error" prominent border="start" colored-border class="my-4" elevation="2"
+      icon="mdi-alert-circle-outline">
+      <strong>Error:</strong> {{ error }}
+    </v-alert>
+    <component  v-if="!error" :is="viewMode === 'table' ? DataTable : DataList" :items="paginatedItems" :headers="headers"
+      :loading="loading" :search="search" :sort-by="sortKey" :sort-desc="!sortAsc"
+      @update:search="(val: string) => search = val" @update:sort-by="(key: string) => sortKey = key"
+      @update:sort-desc="(desc: any) => sortAsc = !desc" @row-click="onRowClick" />
 
-    <v-pagination
-    v-if="viewMode === 'list'"
-      v-model="page"
-      :length="pageCount"
-      class="mt-4 align-self-center"
-    />
+    <v-pagination v-if="viewMode === 'list'" v-model="page" :length="pageCount" class="mt-4 align-self-center" />
 
-    <DetailModal
-      v-model:modelValue="showDetailModal"
-      :item="selectedItem"
-      :loading="loadingDetail"
-      :error="errorDetail"
-    />
+    <DetailModal v-model:modelValue="showDetailModal" :item="selectedItem" :loading="loadingDetail"
+      :error="errorDetail" />
   </div>
 </template>

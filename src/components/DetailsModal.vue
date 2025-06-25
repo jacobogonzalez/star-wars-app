@@ -63,42 +63,64 @@ const formattedDetails = computed(() => {
 </script>
 
 <template>
-  <v-dialog v-model="dialogVisible" max-width="600">
-    <v-card>
-      <v-card-title class="headline">
+  <v-dialog v-model="dialogVisible" max-width="750" persistent>
+    <v-card elevation="12" class="rounded-lg d-flex flex-column" style="height: 80vh; max-height: 80vh;">
+      <v-card-title class="headline font-weight-bold d-flex align-center">
+        <v-icon class="mr-2" color="primary">mdi-information-outline</v-icon>
         {{ props.item?.name || props.item?.title || 'Detalles del elemento' }}
         <v-spacer></v-spacer>
-        <v-btn icon @click="dialogVisible = false">
-          <v-icon>mdi-close</v-icon>
+        <v-btn icon variant="text" @click="dialogVisible = false" aria-label="Cerrar diálogo">
+          <v-icon color="grey darken-1">mdi-close</v-icon>
         </v-btn>
       </v-card-title>
 
       <v-divider></v-divider>
 
-      <v-card-text>
-        <div v-if="loading" class="text-center py-4">
-          <v-progress-circular indeterminate color="primary"></v-progress-circular>
-          <p class="mt-2">Cargando detalles...</p>
+      <!-- Contenido scrollable -->
+      <v-card-text class="pa-6" style="flex: 1 1 auto; overflow-y: auto;">
+        <div v-if="loading" class="text-center py-8">
+          <v-progress-circular indeterminate color="primary" size="48"></v-progress-circular>
+          <p class="mt-4 subtitle-1 font-italic text--secondary">Cargando detalles...</p>
         </div>
-        <div v-else-if="error" class="text-center py-4" style="color: red;">
-          Error: {{ error }}
+
+        <div v-else-if="error" class="text-center py-8">
+          <v-icon large color="error" class="mb-2">mdi-alert-circle-outline</v-icon>
+          <p class="subtitle-1 font-weight-medium" style="color: #b00020;">Error: {{ error }}</p>
         </div>
-        <div v-else-if="!props.item" class="text-center py-4">
-          No se ha seleccionado ningún elemento o los detalles no están disponibles.
+
+        <div v-else-if="!props.item" class="text-center py-8 text--secondary">
+          <v-icon large class="mb-2">mdi-information-outline</v-icon>
+          <p class="subtitle-1 font-weight-medium">No se ha seleccionado ningún elemento o los detalles no están disponibles.</p>
         </div>
-        <div v-else>
-          <v-list dense>
-            <v-list-item v-for="(value, key) in formattedDetails" :key="key">
-              <v-list-item-title class="font-weight-bold">{{ key }}:</v-list-item-title>
-              <v-list-item-subtitle>{{ value }}</v-list-item-subtitle>
-            </v-list-item>
-          </v-list>
-        </div>
+
+        <v-container v-else fluid class="pa-0">
+          <v-row dense>
+            <v-col
+              v-for="(value, key, index) in formattedDetails"
+              :key="'detail-' + index"
+              cols="12" sm="6" md="4"
+            >
+              <v-card outlined rounded class="pa-4">
+                <div class="font-weight-bold text-primary mb-2" style="font-size: 0.9rem;">
+                  {{ key }}
+                </div>
+                <div class="text-body-2" style="white-space: pre-wrap;">
+                  {{ value }}
+                </div>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-card-text>
 
-      <v-card-actions>
+      <v-divider></v-divider>
+
+      <!-- Footer fijo -->
+      <v-card-actions class="px-6 py-3" style="flex-shrink: 0;">
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="dialogVisible = false">Cerrar</v-btn>
+        <v-btn color="primary" variant="outlined" @click="dialogVisible = false" elevation="2">
+          Cerrar
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

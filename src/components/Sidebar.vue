@@ -8,14 +8,14 @@
   >
     <!-- Header -->
     <v-list>
-      <v-list-item>
+      <v-list-item class="pl-1">
         <template #prepend>
           <v-btn
             icon
             variant="text"
             @click="toggleRail"
           >
-            <v-icon>{{ rail ? 'mdi-chevron-right' : 'mdi-chevron-left' }}</v-icon>
+            <v-icon>mdi-menu</v-icon>
           </v-btn>
         </template>
 
@@ -28,7 +28,7 @@
     <!-- Navigation -->
     <v-list density="compact" nav>
       <v-list-item
-        prepend-icon="mdi-home-city"
+        prepend-icon="mdi-account-circle"
         title="People"
         @click="$router.push('/')"
       />
