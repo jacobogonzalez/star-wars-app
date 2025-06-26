@@ -90,28 +90,31 @@ onMounted(() => {
       <v-card
         v-else-if="randomFilm"
       >
-        <div class="d-flex flex-no-wrap justify-space-between align-center">
-          <v-avatar
-            class="ma-3"
-            rounded="lg"
-            size="250"
-          >
-            <v-img :src="getPosterUrl(randomFilm.title)"></v-img>
-          </v-avatar>
-          <div>
-            <v-card-title >
-              {{ randomFilm.title }}
-            </v-card-title>
+        <v-row no-gutters>
+         <v-col cols="12" sm="4" md="3" class="d-flex flex-column justify-center align-center pa-2">
+            <v-img
+              :src="getPosterUrl(randomFilm.title)"
+              cover
+              width="100%"
+              max-height="150"
+              class="rounded-lg" ></v-img>
+          </v-col>
+          <v-col cols="12" sm="8" md="9">
+            <div>
+              <v-card-title >
+                {{ randomFilm.title }}
+              </v-card-title>
 
-            <v-card-subtitle >
-              Episode {{ randomFilm.episode_id }}
-            </v-card-subtitle>
+              <v-card-subtitle >
+                Episode {{ randomFilm.episode_id }}
+              </v-card-subtitle>
 
-            <v-card-text class="text-caption ">
-              {{ randomFilm.opening_crawl }}
-            </v-card-text>
-          </div>
-        </div>
+              <v-card-text class="text-caption ">
+                {{ randomFilm.opening_crawl }}
+              </v-card-text>
+            </div>
+          </v-col>
+        </v-row>
       </v-card>
 
       <v-alert
