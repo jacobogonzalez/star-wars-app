@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PeopleView from '@/pages/PeopleView.vue'
-import PlanetsView from '@/pages/PlanetsView.vue'
+import PeoplesView from '../modules/peoples/views/PeoplesView.vue'
+import PlanetsView from '../modules/planets/views/PlanetsView.vue'
 
 const routes = [
   {
@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/people',
     name: 'People',
-    component: PeopleView,
+    component: PeoplesView,
   },
   {
     path: '/planets',

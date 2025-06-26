@@ -1,30 +1,3 @@
-<script setup lang="ts">
-// Define the structure for a header item, including title, key, and optional sortable property.
-interface Props {
-  headers: Array<{ title: string; key: string; sortable?: boolean }>;
-  items: any[]; // These are the already filtered and sorted items provided to the table.
-  loading: boolean; // Boolean indicating if data is currently being loaded.
-  search?: string; // Optional search string, used for the v-text-field.
-}
-
-// Define the component's props and set a default value for 'search'.
-const props = withDefaults(defineProps<Props>(), {
-  search: '', // Default search string is empty.
-});
-
-// Define the custom events that this component can emit.
-const emit = defineEmits<{
-  (e: 'update:search', value: string): void; // Emits when the search input value changes.
-  (e: 'row-click', item: any): void; // Emits when a table row is clicked, passing the clicked item.
-}>();
-
-// Handler for the row click event from v-data-table.
-const handleRowClick = (_event: Event, { item }: { item: any }) => {
-  // Emit the 'row-click' event with the clicked item.
-  emit('row-click', item);
-};
-</script>
-
 <template>
   <v-card width="100%" max-height="500px">
     <v-card-text>
@@ -63,6 +36,33 @@ const handleRowClick = (_event: Event, { item }: { item: any }) => {
     </v-card-text>
   </v-card>
 </template>
+
+<script setup lang="ts">
+// Define the structure for a header item, including title, key, and optional sortable property.
+interface Props {
+  headers: Array<{ title: string; key: string; sortable?: boolean }>;
+  items: any[]; // These are the already filtered and sorted items provided to the table.
+  loading: boolean; // Boolean indicating if data is currently being loaded.
+  search?: string; // Optional search string, used for the v-text-field.
+}
+
+// Define the component's props and set a default value for 'search'.
+const props = withDefaults(defineProps<Props>(), {
+  search: '', // Default search string is empty.
+});
+
+// Define the custom events that this component can emit.
+const emit = defineEmits<{
+  (e: 'update:search', value: string): void; // Emits when the search input value changes.
+  (e: 'row-click', item: any): void; // Emits when a table row is clicked, passing the clicked item.
+}>();
+
+// Handler for the row click event from v-data-table.
+const handleRowClick = (_event: Event, { item }: { item: any }) => {
+  // Emit the 'row-click' event with the clicked item.
+  emit('row-click', item);
+};
+</script>
 
 <style scoped>
 /* Any specific styles for this component can be added here */
