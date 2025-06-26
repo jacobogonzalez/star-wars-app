@@ -93,7 +93,7 @@ onMounted(() => {
         <div class="d-flex flex-no-wrap justify-space-between align-center">
           <v-avatar
             class="ma-3"
-            rounded="0"
+            rounded="lg"
             size="250"
           >
             <v-img :src="getPosterUrl(randomFilm.title)"></v-img>
