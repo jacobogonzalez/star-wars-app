@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import './style.css'
+import '../src/styles/colors.scss'
 import router from './router'
 
 // Vuetify
@@ -25,14 +26,26 @@ const vuetify = createVuetify({
    theme: {
     defaultTheme: 'light',
     themes: {
-      light: {
+       light: {
+        dark: false,
         colors: {
-          primary: '#ffc500',
+          background: '#F8F9FA',
+          surface: '#FFFFFF',
+          primary: '#FF8C42',
+          onPrimary: '#1B1B1B',
+          success: '#00C67B',
+          border: '#E1E1E1',
         },
       },
       dark: {
+        dark: true,
         colors: {
-          primary: '#ffc500',
+          background: '#0C0F19',
+          surface: '#1C212F',
+          primary: '#FF8C42',
+          onPrimary: '#FFFFFF',
+          success: '#00FF91',
+          border: '#FF8C42',
         },
       },
     },

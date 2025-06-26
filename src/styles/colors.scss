@@ -1,0 +1,19 @@
+/* Modo Claro */
+:root {
+  --color-bg-light: #F8F9FA;
+  --color-surface-light: #FFFFFF;
+  --color-primary-light: #FF8C42;
+  --color-on-primary-light: #1B1B1B;
+  --color-success-light: #00C67B;
+  --color-border-light: #E1E1E1;
+}
+
+/* Modo Oscuro */
+[data-theme='dark'] {
+  --color-bg-dark: #0C0F19;
+  --color-surface-dark: #1C212F;
+  --color-primary-dark: #FF8C42;
+  --color-on-primary-dark: #FFFFFF;
+  --color-success-dark: #00FF91;
+  --color-border-dark: #FF8C42;
+}
