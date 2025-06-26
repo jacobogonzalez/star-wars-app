@@ -31,7 +31,7 @@ const vuetify = createVuetify({
         colors: {
           background: '#F8F9FA',
           surface: '#FFFFFF',
-          primary: '#FF8C42',
+          primary: '#007BFF',
           onPrimary: '#1B1B1B',
           success: '#00C67B',
           border: '#E1E1E1',
@@ -42,10 +42,10 @@ const vuetify = createVuetify({
         colors: {
           background: '#0C0F19',
           surface: '#1C212F',
-          primary: '#FF8C42',
+          primary: '#ffc500',
           onPrimary: '#FFFFFF',
           success: '#00FF91',
-          border: '#FF8C42',
+          border: '#ffc500',
         },
       },
     },

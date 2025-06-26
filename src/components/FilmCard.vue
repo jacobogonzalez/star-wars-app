@@ -101,7 +101,7 @@ onMounted(() => {
           </v-col>
           <v-col cols="12" sm="8" md="9">
             <div>
-              <v-card-title >
+              <v-card-title class="text-primary">
                 {{ randomFilm.title }}
               </v-card-title>
 

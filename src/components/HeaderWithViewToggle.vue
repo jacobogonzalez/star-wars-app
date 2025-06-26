@@ -41,7 +41,7 @@ function toggleDarkMode() {
 
 <template>
     <div class="d-flex justify-space-between align-center mb-4">
-        <h1 class="text-h6 font-weight-bold">{{ title }}</h1>
+        <h1 class="text-h6 text-primary font-weight-bold">{{ title }}</h1>
 
         <div class="d-flex align-center" style="gap: 1rem;">
             <v-btn icon variant="text" :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
