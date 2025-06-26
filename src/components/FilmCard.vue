@@ -90,7 +90,7 @@ onMounted(() => {
       <v-card
         v-else-if="randomFilm"
       >
-        <v-row no-gutters>
+        <v-row  >
          <v-col cols="12" sm="4" md="3" class="d-flex flex-column justify-center align-center pa-2">
             <v-img
               :src="getPosterUrl(randomFilm.title)"
