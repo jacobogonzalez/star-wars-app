@@ -5,6 +5,7 @@ import DataTable from '../components/DataTable.vue'
 import DataList from '../components/DataList.vue'
 import DetailModal from '../components/DetailsModal.vue'
 import HeaderWithViewToggle from '../components/HeaderWithViewToggle.vue'
+import FilmCard from '../components/FilmCard.vue'
 
 // Defines the headers for the data table, including display title, data key, and sortability.
 const headers = [
@@ -90,7 +91,7 @@ const pageCount = computed(() => Math.ceil(results.value.length / itemsPerPage))
     <v-alert v-if="error" type="error" prominent border="start" colored-border class="my-4" elevation="2"
       icon="mdi-alert-circle-outline">
       <strong>Error:</strong> {{ error }} </v-alert>
-
+      <FilmCard class="mb-6"/>
     <component :is="viewMode === 'table' ? DataTable : DataList" v-if="!error" :items="paginatedItems"
       :headers="headers" :loading="loading" :search="search" :sort-by="sortKey" :sort-desc="!sortAsc" :page="page"
       :page-count="pageCount" @update:page="(val: number) => page = val" @update:search="(val: string) => search = val"

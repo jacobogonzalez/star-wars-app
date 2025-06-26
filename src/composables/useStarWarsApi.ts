@@ -16,7 +16,7 @@ export type StarWarsEntity = {
  * @param entity The type of Star Wars entity to fetch ('people' or 'planets').
  * @returns An object containing reactive data and functions for API interaction.
  */
-export function useStarWarsApi(entity: 'people' | 'planets') {
+export function useStarWarsApi(entity: 'people' | 'planets' | 'films') {
   const rawData = ref<StarWarsEntity[]>([]) // Stores the original, un-filtered data from the API.
   const filteredAndSortedResults: Ref<StarWarsEntity[]> = ref([]) // Stores data after filtering and sorting.
   const loading = ref(false) // Indicates if the main data fetch is in progress.
