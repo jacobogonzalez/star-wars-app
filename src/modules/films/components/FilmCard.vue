@@ -38,7 +38,7 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-
+import type { Film } from '../types/film';
 // --- Store Imports ---
 import { useFilmsStore } from '../../../modules/films/store/useFilms.store.ts';
 import Alert from "../../../modules/core/components/Alert.vue"
@@ -49,7 +49,7 @@ const filmsStore = useFilmsStore();
 // --- Reactive State Declarations ---
 
 // Stores the randomly selected film to be displayed.
-const randomFilm = ref<StarWarsEntity | null>(null);
+const randomFilm = ref<Film | null>(null);
 // Indicates if the film data is currently being loaded.
 const isLoading = ref(true); // Renamed from isLoadingFilm for consistency with 'error'
 // Stores any error message encountered during film loading.

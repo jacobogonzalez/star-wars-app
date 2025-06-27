@@ -1,33 +1,38 @@
+// Import Vue core
 import { createApp } from 'vue'
+
+// Global styles
 import './style.css'
 import '../src/styles/colors.scss'
-import router from './router'
 
-// Vuetify
+// App components and core modules
+import App from './App.vue'
+import router from './router'
+import { createPinia } from 'pinia'
+
+// Import Vuetify styles and dependencies
 import 'vuetify/lib/styles/main.sass'
-import '@mdi/font/css/materialdesignicons.css'  // <-- importa los iconos MDI
+import '@mdi/font/css/materialdesignicons.css' // MDI icon font
+
+// Vuetify core and configuration
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-import { aliases, mdi } from 'vuetify/iconsets/mdi' // <-- importa iconset MDI
+import { aliases, mdi } from 'vuetify/iconsets/mdi' // MDI icon set
 
-import App from './App.vue'
-import { createPinia } from 'pinia'
-
+// Create Vuetify instance with components, directives, icons, and theme
 const vuetify = createVuetify({
   components,
   directives,
   icons: {
-    defaultSet: 'mdi',    // usa MDI como set de iconos por defecto
+    defaultSet: 'mdi',
     aliases,
-    sets: {
-      mdi,
-    },
+    sets: { mdi },
   },
-   theme: {
+  theme: {
     defaultTheme: 'light',
     themes: {
-       light: {
+      light: {
         dark: false,
         colors: {
           background: '#F8F9FA',
@@ -52,9 +57,14 @@ const vuetify = createVuetify({
     },
   },
 })
-const pinia = createPinia()
+
+// Create Vue application instance
 const app = createApp(App)
+const pinia = createPinia()
+// Register plugins
 app.use(router)
-app.use(vuetify)
 app.use(pinia)
+app.use(vuetify)
+
+// Mount the application to the DOM
 app.mount('#app')

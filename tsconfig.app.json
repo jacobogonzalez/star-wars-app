@@ -14,6 +14,6 @@
     "moduleResolution": "node",
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue","src/vue-shims.d.ts"],
   "exclude": ["e2e"]
 }

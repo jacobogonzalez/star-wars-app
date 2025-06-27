@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useSidebarStore } from '../store/useSidebar.store'; // Adjust path as needed
-import { useRoute } from 'vue-router';
+// import { useRoute } from 'vue-router';
 
 // Reactive data properties
 const drawer = ref(true); // Controls the visibility of the navigation drawer
@@ -46,5 +46,5 @@ const drawer = ref(true); // Controls the visibility of the navigation drawer
 const sidebarStore = useSidebarStore();
 
 // Get access to the current route object from Vue Router
-const route = useRoute();
+// const route = useRoute();
 </script>

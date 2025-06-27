@@ -2,6 +2,6 @@
   <AppLayout />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import AppLayout from './modules/core/components/AppLayout.vue'
 </script>

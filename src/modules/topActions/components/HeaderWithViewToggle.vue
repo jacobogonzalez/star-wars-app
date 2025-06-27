@@ -22,10 +22,9 @@ import { defineProps } from 'vue'
 import { useTopActionsStore } from '../store/useTopActions.store' 
 
 // Define the component's properties.
-const props = defineProps({
-    title: { type: String, required: true }, // The title to display in the header.
+defineProps({
+  title: { type: String, required: true },
 })
-
 // Initialize the top actions store
 const topActionsStore = useTopActionsStore()
 </script>
