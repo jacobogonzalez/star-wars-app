@@ -6,6 +6,7 @@
           :model-value="props.search"
           @update:model-value="value => emit('update:search', value as string)"
           label="Search..."
+          data-testid="search-input"
           single-line
           hide-details
           variant="outlined"

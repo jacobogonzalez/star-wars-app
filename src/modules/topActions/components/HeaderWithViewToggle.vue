@@ -10,7 +10,7 @@
                 </v-icon>
             </v-btn>
 
-            <v-btn icon variant="text" :title="topActionsStore.currentViewMode === 'table' ? 'Cambiar a Vista de Lista' : 'Cambiar a Vista de Tabla'"
+            <v-btn data-testid="btn-grid-view" icon variant="text" :title="topActionsStore.currentViewMode === 'table' ? 'Cambiar a Vista de Lista' : 'Cambiar a Vista de Tabla'"
                 @click="topActionsStore.toggleViewMode">
                 <v-icon>{{ topActionsStore.currentViewMode === 'table' ? 'mdi-view-list' : 'mdi-table' }}</v-icon>
             </v-btn>

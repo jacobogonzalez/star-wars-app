@@ -12,10 +12,12 @@
             style="max-width: 250px;"
             variant="outlined"
             density="compact"
+            data-testid="sort-select"
           />
 
           <v-text-field
             v-model="localSearch"
+            data-testid="search-input"
             label="Search..."
             single-line
             hide-details
@@ -46,6 +48,7 @@
             active-color="primary"
             rounded="circle"
             class="mt-4 align-self-center"
+             data-testid="pagination"
           />
         </div>
       </div>

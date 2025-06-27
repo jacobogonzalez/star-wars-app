@@ -116,7 +116,7 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-npm run devs will start the application in development mode, typically accessible at http://localhost:8080 (or another port if 8080 is in use).
+npm run devs will start the application in development mode, typically accessible at http://localhost:5173 (or another port if 5173 is in use).
 
 
 
@@ -124,16 +124,32 @@ The application should now be accessible in your web browser.
 
 ### How to Execute Tests and CI
 
-This project includes unit tests for core components and an end-to-end smoke test.
+This project includes unit tests for core components and an end-to-end (E2E) smoke test to validate the main user flow.
 
 Unit Tests
-Unit tests are written using Vitest.
-They cover critical modules to ensure individual components function as expected.
+
+Unit tests are written using Vitest. They cover critical modules to ensure individual components function as expected
 
 To run unit tests:
 
  ```sh
    npm run test
+   ```
+
+End-to-End (E2E) Smoke Test
+
+An end-to-end smoke test is implemented using Playwright. This test covers the primary user journey: loading the page, searching, sorting, and then paginating.
+
+To run the Playwright tests:
+Headless mode (runs tests in the background, ideal for Continuous Integration):
+
+```sh
+   npm run test:e2e
+   ```
+UI mode (opens a browser window, useful for debugging and visualizing test execution):
+
+   ```sh
+   npm run test:e2e:ui
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

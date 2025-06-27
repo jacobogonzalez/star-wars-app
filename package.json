@@ -3,12 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview",
-    "test": "vitest"
-  },
+"scripts": {
+  "dev": "vite",
+  "build": "vue-tsc -b && vite build",
+  "preview": "vite preview",
+  "test": "vitest",
+  "test:e2e": "npx playwright test",
+  "test:e2e:ui": "npx playwright test --ui"
+},
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "pinia": "^3.0.3",
@@ -17,6 +19,7 @@
     "vuetify": "^3.8.11"
   },
   "devDependencies": {
+    "@playwright/test": "^1.53.1",
     "@tailwindcss/postcss": "^4.1.10",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/vue": "^8.1.0",
