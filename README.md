@@ -59,7 +59,7 @@
 ## About The Project
 <div align="center">
  <a href="https://github.com/jacobogonzalez/star-wars-app">
-    <img src="public/images/star-wars-4.svg" alt="Logo" width="80" height="80">
+    <img src="public/images/app.png" alt="Logo"  height="350">
   </a>
 </div>
 "Star Wars Explorer" is a Single-Page Application (SPA) designed to immerse Star Wars fans in the vast universe of the franchise. Utilizing the public Star Wars API (SWAPI), the application allows users to intuitively and responsively explore two key domains: "People" and "Planets."
@@ -74,7 +74,19 @@ The primary goal is to provide an efficient and enjoyable tool for quickly disco
 
 ### Built With
 
-* [![Vue][Vue.js]][Vue-url]
+
+- [Vue](https://vuejs.org/) — Frontend framework
+- [Pinia](https://pinia.vuejs.org/) — State management for Vue
+- [Vue Router](https://router.vuejs.org/) — Routing system
+- [Vuetify](https://vuetifyjs.com/) — Material Design component framework
+- [Vite](https://vitejs.dev/) — Lightning-fast build tool and dev server
+- [TypeScript](https://www.typescriptlang.org/) — Static typing for JavaScript
+- [Vitest](https://vitest.dev/) — Unit testing framework
+- [Playwright](https://playwright.dev/) — End-to-end testing framework
+- [Testing Library](https://testing-library.com/docs/vue-testing-library/intro/) — For testing Vue components
+- [Sass Embedded](https://sass-lang.com/dart-sass) — Used with Vuetify styles
+- [JS DOM](https://github.com/jsdom/jsdom) — JavaScript implementation of the DOM for testing
+- [@mdi/font](https://pictogrammers.com/library/mdi/) — Material Design Icons
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -211,16 +223,4 @@ Jacobo Gonzalez
 Project Link: [https://github.com/jacobogonzalez/star-wars-app](https://github.com/jacobogonzalez/star-wars-app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-
-
-
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
 
