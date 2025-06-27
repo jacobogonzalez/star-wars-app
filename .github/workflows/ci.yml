@@ -19,7 +19,10 @@ jobs:
           node-version: '20' # Use a Node.js version compatible with your project
 
       - name: Install Dependencies
-        run: npm ci # Use npm ci for clean installs in CI environments
+        run: | # <--- The pipe '|' is crucial here
+          npm ci
+          npm ls @playwright/test
+        
 
       - name: Run Unit Tests
         run: npm run test # Runs Vitest unit tests
