@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main # Or your default branch like 'master'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a Node.js version compatible with your project
+
+      - name: Install Dependencies
+        run: npm ci # Use npm ci for clean installs in CI environments
+
+      - name: Run Lint
+        run: npm run lint # Assuming you have a 'lint' script in your package.json
+
+      - name: Run Unit Tests
+        run: npm run test # Runs Vitest unit tests
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium # Install only Chromium for E2E tests
+
+      - name: Run End-to-End Tests (Playwright)
+        run: npm run test:e2e # Runs Playwright tests in headless mode
+
+      - name: Build Production Application
+        run: npm run build # Creates a production build of your Vue app
+
+      - name: Upload Build Artifact (Optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/ # The path to your built application output
