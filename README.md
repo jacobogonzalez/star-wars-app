@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/jacobogonzalez/star-wars-app">
-    <img src="public/images/star-wars-4.svg" alt="Logo" width="80" height="80">
+    <img src="public/images/star-wars-4.svg" alt="Logo"  height="250">
   </a>
 
 <h3 align="center">Star Wars Explorer</h3>
