@@ -23,8 +23,7 @@ import { ref, onMounted, watch } from 'vue';
 
 // --- Component Imports ---
 import DataTable from '../../../modules/dataTable/components/DataTable.vue';
-// DataList is not currently used but kept for context if needed later.
-// import DataList from '../../../components/DataList.vue';
+
 import DetailModal from '../../modals/components/DetailsModal.vue';
 import HeaderWithViewToggle from '../../topActions/components/HeaderWithViewToggle.vue';
 import FilmCard from '../../../modules/films/components/FilmCard.vue';

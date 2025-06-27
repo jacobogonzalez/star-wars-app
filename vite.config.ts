@@ -4,35 +4,40 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+// Get current file and directory paths
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export default defineConfig({
   plugins: [
-    vue(),
-    tsconfigPaths(),
+    vue(),                // Enables Vue support
+    tsconfigPaths(),      // Resolves paths based on tsconfig.json
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './src'), // Alias '@' points to the 'src' directory
     },
   },
   test: {
-    globals: true,
-    environment: 'jsdom',
-    include: ['src/**/*.spec.ts', 'src/**/*.test.ts', 'src/modules/dataTable/**/*.spec.ts'],
-    setupFiles: './src/tests/setup.ts',
-     coverage: {
-      reporter: ['text', 'html'], // formatos de reporte, 'text' para consola, 'html' para un reporte visual
-      include: ['src/**/*.ts', 'src/**/*.vue'], // ajusta según tu estructura
-      exclude: ['node_modules/', 'tests/'], 
+    globals: true,                      // Use global test APIs (e.g., describe, it)
+    environment: 'jsdom',              // Simulates a browser environment
+    include: [                         // Files to include in testing
+      'src/**/*.spec.ts',
+      'src/**/*.test.ts',
+      'src/modules/dataTable/**/*.spec.ts',
+    ],
+    setupFiles: './src/tests/setup.ts', // Setup file run before tests
+    coverage: {
+      reporter: ['text', 'html'],       // Report formats: text for console, html for visual report
+      include: ['src/**/*.ts', 'src/**/*.vue'], // Files to include in coverage
+      exclude: ['node_modules/', 'tests/'],     // Files to exclude from coverage
     },
     deps: {
-      inline: ['vuetify'],     // <- aquí debe ir inline
-      external: [/\.css$/],
+      inline: ['vuetify'],              // Inline Vuetify dependencies for better compatibility
+      external: [/\.css$/],             // Treat CSS files as external dependencies
     },
-    watch: false,
-    clearMocks: true,
-    css: false,
+    watch: false,       // Disable watch mode for tests
+    clearMocks: true,   // Automatically clear mock calls and instances between tests
+    css: false,         // Disable CSS handling during tests
   },
 })

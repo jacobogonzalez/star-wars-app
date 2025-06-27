@@ -23,17 +23,6 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    // You can add more projects for other browsers like 'firefox', 'webkit' if needed
-    /*
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-    */
   ],
 
   // Web server to run tests against
@@ -41,7 +30,7 @@ export default defineConfig({
     command: 'npm run dev', // Command to start your dev server
     url: 'http://localhost:5173', // URL your dev server runs on
     reuseExistingServer: !process.env.CI, // Do NOT reuse server in CI
-    timeout: 120 * 1000, // <<-- INCREASED TIMEOUT TO 2 MINUTES (120,000 ms)
+    timeout: 120 * 1000,
     // waitUntil: 'started', // This is the default and usually sufficient
   },
 });
