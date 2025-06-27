@@ -80,6 +80,7 @@ const props = defineProps<{
   sortBy: string;
   /**
    * Boolean indicating the sort direction (true for descending, false for ascending).
+   * Note: This prop receives `!sortAsc` from the parent.
    */
   sortDesc: boolean;
 }>();
@@ -119,11 +120,29 @@ const emit = defineEmits([
 ]);
 
 // --- Local State for Input Binding ---
-// Local refs are used for controlled components to allow internal logic (like combined sorting)
-// before emitting updates to the parent.
+// Local ref for search input, allows internal control before emitting.
 const localSearch = ref(props.search);
-// The combined sort value (e.g., 'name:asc') for the v-select component.
-const localSortCombined = ref('name:asc');
+
+// Computed property for the combined sort value (e.g., 'name:asc') for the v-select.
+// Uses a getter and setter to correctly handle v-model and emit updates.
+const localSortCombined = computed({
+  get: () => {
+    // If sortBy prop is empty, default to 'name:asc' to ensure a valid initial display.
+    if (!props.sortBy) {
+      return 'name:asc'; // Default value if sortBy is not provided initially
+    }
+    const direction = props.sortDesc ? 'desc' : 'asc';
+    return `${props.sortBy}:${direction}`;
+  },
+  set: (newValue: string) => {
+    // When the v-select value changes, parse it and emit updates to the parent.
+    const [sortBy, sortDir] = newValue.split(':');
+    emit('update:sortBy', sortBy);
+    emit('update:sortDesc', sortDir === 'desc');
+    page.value = 1; // Reset to the first page when sorting changes
+  }
+});
+
 
 // --- Pagination Logic ---
 const itemsPerPage = 10; // Fixed number of items to display per page.
@@ -161,17 +180,6 @@ const combinedSortOptions = [
 // --- Watchers for Emitting Updates to Parent ---
 
 /**
- * Watches for changes in the `localSortCombined` value (from the sort dropdown).
- * Parses the combined value to extract `sortBy` and `sortDesc` and emits them.
- */
-watch(localSortCombined, (val) => {
-  const [sortBy, sortDir] = val.split(':');
-  emit('update:sortBy', sortBy);
-  // Convert 'desc' string to boolean true, otherwise false.
-  emit('update:sortDesc', sortDir === 'desc');
-});
-
-/**
  * Watches for changes in the `localSearch` input and emits the new search query.
  */
 watch(localSearch, (val) => {
@@ -184,11 +192,9 @@ watch(() => props.search, (newVal) => {
   localSearch.value = newVal;
 });
 
-// Watch for external changes to props.sortBy and props.sortDesc and update localSortCombined
-watch([() => props.sortBy, () => props.sortDesc], ([newSortBy, newSortDesc]) => {
-  const direction = newSortDesc ? 'desc' : 'asc';
-  localSortCombined.value = `${newSortBy}:${direction}`;
-}, { immediate: true }); // Immediate true ensures initial sync
+// No need for a separate watcher for props.sortBy/sortDesc to update localSortCombined
+// because localSortCombined is now a computed property with a getter/setter
+// that automatically reacts to changes in its dependencies (props.sortBy, props.sortDesc).
 
 </script>
 

@@ -1,4 +1,4 @@
-  export function applyFiltersAndSort({data, elementToSearch, sortKey, sortAsc}: {data: any, elementToSearch: string, sortKey: string, sortAsc: string}) {
+  export function applyFiltersAndSort({data, elementToSearch, sortKey, sortAsc}: {data: any, elementToSearch: string, sortKey: string, sortAsc: boolean}) {
     let currentResults = [...data];
 
     // 1. Filter by search query.

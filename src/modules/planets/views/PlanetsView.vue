@@ -11,7 +11,7 @@
     <component :is="topActionsStore.currentViewMode === 'table' ? DataTable : GridData" :items="preparedData" :headers="headers"
       :loading="isLoading" :search="search" :sort-by="sortKey" :sort-desc="!sortAsc"
       @update:search="(val: string) => search = val" @update:sort-by="(key: string) => sortKey = key"
-      @update:sort-desc="(desc: any) => sortAsc = !desc" @row-click="onRowClick" />
+      @update:sort-desc="(desc: boolean) => sortAsc = !desc" @row-click="onRowClick" />
 
     <DetailModal v-model:modelValue="showDetailModal" :item="selectedItem" :loading="loadingDetail"
       :error="errorDetail" />
@@ -30,6 +30,7 @@ import HeaderWithViewToggle from '../../topActions/components/HeaderWithViewTogg
 import FilmCard from '../../../modules/films/components/FilmCard.vue';
 import GridData from '../../../modules/dataGrid/components/GridData.vue';
 import Alert from "../../../modules/core/components/Alert.vue"
+import type { Planet } from '../types/planet';
 
 // --- Store Imports ---
 import { usePlanetsStore } from '../../../modules/planets/store/usePlanets.store.ts';
@@ -52,11 +53,11 @@ const errorDetail = ref<string | null>(null); // Specific error for detail modal
 // Search and sorting states
 const search = ref(''); // Current search query
 const sortKey = ref(''); // Key for current sorting
-const sortAsc = ref(''); // Sort order (true for ascending)
+const sortAsc = ref<boolean>(true); // Sort order (true for ascending)
 
 // Data for display
 const preparedData = ref<any>([]); // Data after filters and sorting applied
-const selectedItem = ref<StarWarsEntity | null>(null); // Item selected for the detail modal
+const selectedItem = ref<Planet | null>(null); // Item selected for the detail modal
 
 // --- Component Data ---
 
@@ -78,9 +79,9 @@ const showDetailModal = ref(false);
  * Handles the click event on a table row or list item.
  * Extracts the item's ID, finds the corresponding item in the store,
  * and then opens the detail modal with the selected item's data.
- * @param item The StarWarsEntity object corresponding to the clicked row/item.
+ * @param item The Planet object corresponding to the clicked row/item.
  */
-function onRowClick(item: StarWarsEntity) {
+function onRowClick(item: Planet) {
   loadingDetail.value = true; // Set loading state for detail modal
   errorDetail.value = null; // Clear any previous detail error
   showDetailModal.value = true; // Open the modal
@@ -88,7 +89,7 @@ function onRowClick(item: StarWarsEntity) {
   try {
     const itemId = extractIdFromUrl(item.url); // Extract ID from the item's URL
     // Find the item in the store's planets array based on its ID
-    selectedItem.value = planetsStore.planets.find(p => extractIdFromUrl(p.url) === itemId) || null;
+    selectedItem.value = planetsStore.planets.find((p: { url: string; }) => extractIdFromUrl(p.url) === itemId) || null;
 
     if (!selectedItem.value) {
       // If the item isn't found, set an error message
