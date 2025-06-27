@@ -4,7 +4,7 @@ import Sidebar from './Sidebar.vue'
 import { vuetify } from '../../../tests/setupVuetify'
 import { createRouter, createMemoryHistory } from 'vue-router'
 
-// Mock ResizeObserver (Vuetify lo usa internamente)
+// Mock ResizeObserver (Vuetify uses it internally)
 class ResizeObserver {
   observe() {}
   unobserve() {}
@@ -12,7 +12,7 @@ class ResizeObserver {
 }
 global.ResizeObserver = ResizeObserver
 
-// Mock del store Pinia
+// Mock the Pinia store
 vi.mock('../store/useSidebar.store', () => ({
   useSidebarStore: () => ({
     isRail: false,
@@ -20,7 +20,7 @@ vi.mock('../store/useSidebar.store', () => ({
   }),
 }))
 
-// Router de prueba (real, no mock)
+// Test router (real, not a mock)
 const router = createRouter({
   history: createMemoryHistory(),
   routes: [
@@ -30,13 +30,13 @@ const router = createRouter({
 })
 
 beforeEach(async () => {
-  // Nos aseguramos de iniciar en /planets en cada test
+  // Ensure we start at /planets for each test
   await router.push('/planets')
   await router.isReady()
 })
 
 describe('Sidebar', () => {
-  it('renderiza correctamente y muestra los ítems', async () => {
+  it('renders correctly and displays the items', async () => {
     const wrapper = mount({
       components: { Sidebar },
       template: '<v-app><Sidebar /></v-app>',
@@ -51,7 +51,7 @@ describe('Sidebar', () => {
     expect(wrapper.find('img[alt="Star Wars Logo"]').exists()).toBe(true)
   })
 
-  it('aplica color primario al item activo según la ruta', async () => {
+  it('applies primary color to the active item based on the route', async () => {
     const wrapper = mount({
       components: { Sidebar },
       template: '<v-app><Sidebar /></v-app>',

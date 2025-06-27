@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils'
 import { expect, it, afterEach } from 'vitest'
 import DetailsModal from './DetailsModal.vue'
-import { vuetify } from '../../../tests/setupVuetify'  // asegúrate que está exportado bien
+import { vuetify } from '../../../tests/setupVuetify'
 
 it('renders with Vuetify context', async () => {
-  // Montamos el componente en el DOM real
+  // Mount the component to the real DOM
   const wrapper = mount(DetailsModal, {
     attachTo: document.body,
     props: {
@@ -16,16 +16,16 @@ it('renders with Vuetify context', async () => {
     }
   })
 
-  // Esperamos a que Vue actualice el DOM
+  // Wait for Vue to update the DOM
   await wrapper.vm.$nextTick()
 
-  // Como el contenido está teleporteado, comprobamos el body entero
+  // Since the content is teleported, we check the entire body
   expect(document.body.innerHTML).toContain('Test')
 
   wrapper.unmount()
 })
 
 afterEach(() => {
-  // Limpiar el DOM después de cada test para evitar conflictos
+  // Clean up the DOM after each test to avoid conflicts
   document.body.innerHTML = ''
 })
