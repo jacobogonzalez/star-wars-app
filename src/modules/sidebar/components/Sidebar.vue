@@ -15,16 +15,29 @@
     </v-list>
 
     <v-list density="compact" nav>
-      <v-list-item prepend-icon="mdi-account-circle" title="People" @click="$router.push('/')" />
+      <v-list-item
+        :active="$route.path === '/people' ? true: false"
+        :color="$route.path === '/people' ? 'primary' : undefined"
+        prepend-icon="mdi-account-circle"
+        title="People"
+        @click="$router.push('/')"
+      />
       <v-divider></v-divider>
-      <v-list-item prepend-icon="mdi-earth" title="Planets" @click="$router.push('/planets')" />
+      <v-list-item
+        :active="$route.path === '/planets' ? true: false"
+        :color="$route.path === '/planets' ? 'primary' : undefined"
+        prepend-icon="mdi-earth"
+        title="Planets"
+        @click="$router.push('/planets')"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useSidebarStore } from '../store/useSidebar.store' // Adjust path as needed
+import { useSidebarStore } from '../store/useSidebar.store'; // Adjust path as needed
+import { useRoute } from 'vue-router';
 
 // Reactive data properties
 const drawer = ref(true); // Controls the visibility of the navigation drawer
@@ -32,5 +45,6 @@ const drawer = ref(true); // Controls the visibility of the navigation drawer
 // Initialize the Pinia store
 const sidebarStore = useSidebarStore();
 
-
+// Get access to the current route object from Vue Router
+const route = useRoute();
 </script>
