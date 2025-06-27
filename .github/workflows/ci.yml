@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main # Or your default branch like 'master'
+      - main # O tu rama principal
 
 jobs:
   build-and-test:
@@ -13,28 +13,37 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Use a Node.js version compatible with your project
+          node-version: '20'
 
-      - name: Install Dependencies
-        run: npm ci # Use npm ci for clean installs in CI environments
+      - name: Clean and install dependencies
+        run: |
+          rm -rf node_modules
+          npm ci
+          npm dedupe
 
-      - name: Run Unit Tests
-        run: npm run test # Runs Vitest unit tests
+
+      - name: Show Playwright version and test discovery
+        run: |
+          npx playwright --version
+          npx playwright test --list
+
+      - name: Run Unit Tests (Vitest)
+        run: npm run test
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium # Install only Chromium for E2E tests
+        run: npx playwright install --with-deps chromium
 
       - name: Run End-to-End Tests (Playwright)
-        run: npm run test:e2e # Runs Playwright tests in headless mode
+        run: npm run test:e2e
 
       - name: Build Production Application
-        run: npm run build # Creates a production build of your Vue app
+        run: npm run build
 
       - name: Upload Build Artifact (Optional)
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: dist/ # The path to your built application output
+          path: dist/
