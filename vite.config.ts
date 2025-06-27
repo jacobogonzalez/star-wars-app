@@ -22,6 +22,11 @@ export default defineConfig({
     environment: 'jsdom',
     include: ['src/**/*.spec.ts', 'src/**/*.test.ts', 'src/modules/dataTable/**/*.spec.ts'],
     setupFiles: './src/tests/setup.ts',
+     coverage: {
+      reporter: ['text', 'html'], // formatos de reporte, 'text' para consola, 'html' para un reporte visual
+      include: ['src/**/*.ts', 'src/**/*.vue'], // ajusta según tu estructura
+      exclude: ['node_modules/', 'tests/'], 
+    },
     deps: {
       inline: ['vuetify'],     // <- aquí debe ir inline
       external: [/\.css$/],
