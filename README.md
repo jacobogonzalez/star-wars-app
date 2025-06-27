@@ -1,8 +1,11 @@
+
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 
 
 
 
+<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/jacobogonzalez/star-wars-app">
@@ -25,6 +28,7 @@
 
 
 
+<!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -51,15 +55,16 @@
 
 
 
+<!-- ABOUT THE PROJECT -->
 ## About The Project
 <div align="center">
- <a href="https://github.com/jacobogonzalez/star-wars-app">
-    <img src="public/images/star-wars-4.svg" alt="Logo" width="80" height="80">
-  </a>
+ <a href="https://github.com/jacobogonzalez/star-wars-app">
+    <img src="public/images/star-wars-4.svg" alt="Logo" width="80" height="80">
+  </a>
 </div>
 "Star Wars Explorer" is a Single-Page Application (SPA) designed to immerse Star Wars fans in the vast universe of the franchise. Utilizing the public Star Wars API (SWAPI), the application allows users to intuitively and responsively explore two key domains: "People" and "Planets."
 
-With a clear and accessible user interface, the application offers Browse, searching (case-insensitive and partial by name), sorting (by name and creation date, ascending or descending), and pagination functionalities (10 items per page). Consistent design is ensured through the use of Vuetify, adapting to different screen sizes with tables on desktop and cards on mobile devices.
+With a clear and accessible user interface, the application offers browsing, searching (case-insensitive and partial by name), sorting (by name and creation date, ascending or descending), and pagination functionalities (10 items per page). Consistent design is ensured through the use of Vuetify, adapting to different screen sizes with tables on desktop and cards on mobile devices.
 
 The primary goal is to provide an efficient and enjoyable tool for quickly discovering interesting facts about the galaxy, ensuring a smooth user experience with clear loading, error, and empty states, as well as basic accessibility support.
 
@@ -74,7 +79,6 @@ The primary goal is to provide an efficient and enjoyable tool for quickly disco
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
----
 
 ### Architectural Decisions
 
@@ -90,8 +94,7 @@ This section outlines the key architectural decisions made during the developmen
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
----
-
+<!-- GETTING STARTED -->
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -101,29 +104,30 @@ To get a local copy up and running follow these simple example steps.
 
 This is an example of how to list things you need to use the software and how to install them.
 * npm
-  ```sh
-  npm install npm@latest -g
-  ```
+  ```sh
+  npm install npm@latest -g
+  ```
 
 ### Installation
 
 1. Clone the repo
-   ```sh
-   git clone [https://github.com/jacobogonzalez/star-wars-app.git](https://github.com/jacobogonzalez/star-wars-app.git)
-   ```
+   ```sh
+   git clone https://github.com/jacobogonzalez/star-wars-app.git
+   ```
 2. Install NPM packages
-   ```sh
-   npm install
-   ```
+   ```sh
+   npm install
+   ```
 
 3. Run the development server
-   ```sh
-   npm run dev
-   ```
+   ```sh
+   npm run dev
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
+<!-- USAGE EXAMPLES -->
 ## Usage
 
 npm run devs will start the application in development mode, typically accessible at http://localhost:5173 (or another port if 5173 is in use).
@@ -142,9 +146,9 @@ Unit tests are written using Vitest. They cover critical modules to ensure indiv
 
 To run unit tests:
 
- ```sh
-   npm run test
-   ```
+ ```sh
+   npm run test
+   ```
 
 End-to-End (E2E) Smoke Test
 
@@ -154,18 +158,19 @@ To run the Playwright tests:
 Headless mode (runs tests in the background, ideal for Continuous Integration):
 
 ```sh
-   npm run test:e2e
-   ```
+   npm run test:e2e
+   ```
 UI mode (opens a browser window, useful for debugging and visualizing test execution):
 
-   ```sh
-   npm run test:e2e:ui
-   ```
+   ```sh
+   npm run test:e2e:ui
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
+<!-- ROADMAP -->
 ## Roadmap
 
 - [ ] Continue expanding unit test coverage to include additional critical modules.
@@ -176,6 +181,7 @@ See the [open issues](https://github.com/jacobogonzalez/star-wars-app/issues) fo
 
 
 
+<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -197,6 +203,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 
+<!-- CONTACT -->
 ## Contact
 
 Jacobo Gonzalez
@@ -216,3 +223,4 @@ Project Link: [https://github.com/jacobogonzalez/star-wars-app](https://github.c
 
 [Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [Vue-url]: https://vuejs.org/
+
