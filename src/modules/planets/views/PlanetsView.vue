@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column h-100 pa-4">
-    <HeaderWithViewToggle title="planets" :viewMode="viewMode" @update:viewMode="mode => viewMode = mode" />
+    <HeaderWithViewToggle title="planets" />
     <v-card v-if="error" height="100px">
       <Alert :message="`Error: ${error}`" type="error" />
     </v-card>
@@ -8,7 +8,7 @@
 
     <FilmCard class="mb-6" />
 
-    <component :is="viewMode === 'table' ? DataTable : GridData" :items="preparedData" :headers="headers"
+    <component :is="topActionsStore.currentViewMode === 'table' ? DataTable : GridData" :items="preparedData" :headers="headers"
       :loading="isLoading" :search="search" :sort-by="sortKey" :sort-desc="!sortAsc"
       @update:search="(val: string) => search = val" @update:sort-by="(key: string) => sortKey = key"
       @update:sort-desc="(desc: any) => sortAsc = !desc" @row-click="onRowClick" />
@@ -25,25 +25,21 @@ import { ref, onMounted, watch } from 'vue';
 import DataTable from '../../../modules/dataTable/components/DataTable.vue';
 // DataList is not currently used but kept for context if needed later.
 // import DataList from '../../../components/DataList.vue';
-import DetailModal from '../../../components/DetailsModal.vue';
-import HeaderWithViewToggle from '../../../components/HeaderWithViewToggle.vue';
+import DetailModal from '../../modals/components/DetailsModal.vue';
+import HeaderWithViewToggle from '../../topActions/components/HeaderWithViewToggle.vue';
 import FilmCard from '../../../modules/films/components/FilmCard.vue';
 import GridData from '../../../modules/dataGrid/components/GridData.vue';
 import Alert from "../../../modules/core/components/Alert.vue"
 
 // --- Store Imports ---
 import { usePlanetsStore } from '../../../modules/planets/store/usePlanets.store.ts';
-
+import { useTopActionsStore } from '../../../modules/topActions/store/useTopActions.store.ts';
 // --- Utility Imports ---
 import { applyFiltersAndSort, extractIdFromUrl } from '../../../modules/core/utils/manageData.util.ts';
 
 // --- Store Initialization ---
 const planetsStore = usePlanetsStore();
-
-// --- Reactive State Declarations ---
-
-// View mode control ('table' or 'list')
-const viewMode = ref<'table' | 'list'>('table');
+const topActionsStore = useTopActionsStore(); 
 
 // Data fetching and loading states
 const isLoading = ref(false); // Indicates if main people data is being loaded

@@ -7,6 +7,6 @@
   </v-app>
 </template>
 
-<script setup>
-import Sidebar from '@/components/Sidebar.vue'
+<script lang="ts" setup>
+import Sidebar from '../../sidebar/components/Sidebar.vue'
 </script>
