@@ -40,3 +40,24 @@ export function extractIdFromUrl(url: string): string {
   // Returns the last non-empty segment of the URL, which typically contains the ID.
   return parts[parts.length - 1] || parts[parts.length - 2]
 }
+
+/**
+ * Formats an ISO 8601 date string into a human-readable format (e.g., "MM/DD/YYYY" or "DD/MM/YYYY").
+ * If the input is invalid or falsy, returns an empty string.
+ * @param isoDate The ISO date string to format.
+ * @param locale Optional locale string, defaults to 'en-US'.
+ * @param options Optional Intl.DateTimeFormat options.
+ * @returns The formatted date string.
+ */
+export function formatDate(
+  isoDate: string | null | undefined,
+  locale = 'en-US',
+  options?: Intl.DateTimeFormatOptions
+): string {
+  if (!isoDate) return '';
+
+  const date = new Date(isoDate);
+  if (isNaN(date.getTime())) return '';
+
+  return date.toLocaleDateString(locale, options || { year: 'numeric', month: '2-digit', day: '2-digit' });
+}

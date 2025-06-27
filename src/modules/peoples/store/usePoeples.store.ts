@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { getPeoples } from "../api/peoplesService.api";
+import { formatDate } from "../../core/utils/manageData.util"
 
 /**
  * Defines the Pinia store for managing Star Wars peoples (characters) data.
@@ -16,7 +17,13 @@ export const usePeoplesStore = defineStore('peoplesStore', () => {
      * The fetched data is then assigned to the 'peoples' ref.
      */
     async function loadPeoples() {
-        peoples.value = await getPeoples();
+        const data = await getPeoples();
+
+        peoples.value = data.map((person: any) => ({
+            ...person,
+            created: formatDate(person.created),
+            edited: formatDate(person.edited),
+        }));
     }
 
     // Expose the reactive state and actions that can be used by components.

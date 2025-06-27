@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Test case: verifies that grid view supports sorting and searching functionality.
-test('peoples test: load grid view → perform search → apply sort → navigate pagination', async ({ page }) => {
+test('smoke test: load grid view → perform search → apply sort → navigate pagination', async ({ page }) => {
     // Navigate to the application
     await page.goto('/');
 
@@ -23,7 +23,7 @@ test('peoples test: load grid view → perform search → apply sort → navigat
     await searchInput.fill('Luke');
     // Locate the first item in the sorted list. This is very specific to your UI content.
     const firstItemName = page.locator('div').filter({
-        hasText: /^Luke Skywalker2014-12-09T13:50:51\.644000ZGender: maleHeight: 172 cm Films: 4$/
+        hasText: /Luke Skywalker.*Gender: male/
     }).first();
 
     // Check that the item contains "Luke".

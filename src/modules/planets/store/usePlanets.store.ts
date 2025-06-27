@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { getPlanets } from "../api/planetsService.api";
+import { formatDate } from "../../core/utils/manageData.util"
 
 /**
  * Defines the Pinia store for managing planets data.
@@ -16,9 +17,13 @@ export const usePlanetsStore = defineStore('planetsStore', () => {
      * The fetched data is then assigned to the 'planets' ref.
      */
     async function loadPlanets() {
-        planets.value = await getPlanets();
+        const data  = await getPlanets();
+        planets.value = data.map((planet: any) => ({
+                ...planet,
+                created: formatDate(planet.created),
+                edited: formatDate(planet.edited),
+            }));
     }
-
     // Expose the reactive state and actions that can be used by components.
     return {
         planets,     // The reactive array of planets

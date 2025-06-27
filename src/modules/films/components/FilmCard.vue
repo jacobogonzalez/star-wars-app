@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card v-if="isLoading" color="#1F7087">
-      <v-skeleton-loader type="card"></v-skeleton-loader>
+    <v-card v-if="isLoading" color="#1F7087" max-height="150px">
+      <v-skeleton-loader  type="card"></v-skeleton-loader>
     </v-card>
 
     <v-card v-if="error" height="100px">
