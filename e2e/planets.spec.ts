@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-// Test case: verifies that grid view supports sorting and searching functionality.
-test('smoke test: load grid view → perform search → apply sort → navigate pagination', async ({ page }) => {
-    // Navigate to the application
-    await page.goto('/');
+// Test case: verifies that grid view supports sorting and searching functionality on /planets route.
+test('planets test: load grid view on /planets → perform search → apply sort → navigate pagination', async ({ page }) => {
+    // Navigate to the planets page
+    await page.goto('/planets');
 
     // --- Switch to Grid View ---
     const gridViewBtn = page.locator('[data-testid="btn-grid-view"]');
@@ -20,14 +20,14 @@ test('smoke test: load grid view → perform search → apply sort → navigate 
 
     // --- Verify Search Results (after sort) ---
     const searchInput = page.locator('[data-testid="search-input"] input');
-    await searchInput.fill('Luke');
-    // Locate the first item in the sorted list. This is very specific to your UI content.
+    await searchInput.fill('Tatooine');  // example planet name
+    // Adjust this selector/text to match your planets grid item structure
     const firstItemName = page.locator('div').filter({
-        hasText: /^Luke Skywalker2014-12-09T13:50:51\.644000ZGender: maleHeight: 172 cm Films: 4$/
+        hasText: /^Tatooine.*$/  // a regex matching Tatooine or similar content
     }).first();
 
-    // Check that the item contains "Luke".
-    await expect(firstItemName).toContainText('Luke');
+    // Check that the item contains "Tatooine".
+    await expect(firstItemName).toContainText('Tatooine');
 
     // --- Pagination visibility check ---
     const pagination = page.locator('[data-testid="pagination"]');
