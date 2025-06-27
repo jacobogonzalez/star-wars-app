@@ -3,7 +3,7 @@ import path from 'path';
 
 export default defineConfig({
   // Directory where tests are located
-  testDir: './src/tests/e2e',
+   testDir: './e2e',
 
   // Other configurations...
   fullyParallel: true,
