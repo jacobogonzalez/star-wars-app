@@ -21,8 +21,12 @@ export default defineConfig({
     globals: true,        // Permite usar describe, it, expect globalmente
     environment: 'jsdom', // Emula navegador para tests
     setupFiles: './src/tests/setup.ts', // Archivo para setup global
+     server: {
+      deps: {
+        inline: ['vuetify'],
+      },
+    },
     deps: {
-      inline: ['vuetify'],       // Procesar vuetify con vite-node (vitest)
       external: [/\.css$/],      // Ignorar archivos CSS (previene error unknown ext)
     },
     // Esto es opcional pero útil para debugging y mejores mensajes:

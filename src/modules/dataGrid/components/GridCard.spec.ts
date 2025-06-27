@@ -2,6 +2,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import GridCard from './GridCard.vue'
+import { vuetify } from '../../../tests/setupVuetify'
 
 describe('GridCard', () => {
   const planet = {
@@ -23,6 +24,9 @@ describe('GridCard', () => {
   it('renders planet info when item has diameter', () => {
     const wrapper = mount(GridCard, {
       props: { item: planet },
+      global: {
+      plugins: [vuetify]
+    }
     })
 
     expect(wrapper.text()).toContain('Tatooine')
@@ -38,6 +42,9 @@ describe('GridCard', () => {
   it('renders person info when item does not have diameter', () => {
     const wrapper = mount(GridCard, {
       props: { item: person },
+      global: {
+        plugins: [vuetify],
+      },
     })
 
     expect(wrapper.text()).toContain('Luke Skywalker')
