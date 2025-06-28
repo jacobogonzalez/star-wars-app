@@ -1,35 +1,27 @@
 <template>
   <div class="d-flex flex-column h-100 pa-4">
-    <HeaderWithViewToggle
-      title="Peoples"
-    />
-    <v-card v-if="error "height="100px">
-      <Alert  :message="`Error: ${error}`" type="error" />
+    <HeaderWithViewToggle title="Peoples" />
+    <v-card v-if="error" height="100px">
+      <Alert :message="`Error: ${error}`" type="error" />
     </v-card>
 
 
     <FilmCard class="mb-6" />
+    <!--
+      NOTE:
+      While the most optimal approach would be to handle sorting, searching, and loading logic
+      **inside the component itself** (e.g., DataTable or GridData) and simply pass the final data as props—
+      possibly using a state management tool like Pinia for shared state—
+      this implementation is structured this way **intentionally** to demonstrate
+      how to handle event communication between parent and child components (and vice versa).
+    -->
+    <component :is="topActionsStore.currentViewMode === 'table' ? DataTable : GridData" :items="preparedData"
+      :headers="headers" :loading="isLoading" :search="search" :sort-by="sortKey" :sort-desc="!sortAsc"
+      @update:search="(val: string) => search = val" @update:sort-by="(key: string) => sortKey = key"
+      @update:sort-desc="(desc: boolean) => sortAsc = !desc" @row-click="onRowClick" />
 
-    <component
-      :is="topActionsStore.currentViewMode === 'table' ? DataTable : GridData"
-      :items="preparedData"
-      :headers="headers"
-      :loading="isLoading"
-      :search="search"
-      :sort-by="sortKey"
-      :sort-desc="!sortAsc"
-      @update:search="(val: string) => search = val"
-      @update:sort-by="(key: string) => sortKey = key"
-      @update:sort-desc="(desc: boolean) => sortAsc = !desc"
-      @row-click="onRowClick"
-    />
-
-    <DetailModal
-      v-model:modelValue="showDetailModal"
-      :item="selectedItem"
-      :loading="loadingDetail"
-      :error="errorDetail"
-    />
+    <DetailModal v-model:modelValue="showDetailModal" :item="selectedItem" :loading="loadingDetail"
+      :error="errorDetail" />
   </div>
 </template>
 
@@ -55,7 +47,7 @@ import { applyFiltersAndSort, extractIdFromUrl } from '../../../modules/core/uti
 
 // --- Store Initialization ---
 const peoplesStore = usePeoplesStore();
-const topActionsStore = useTopActionsStore(); 
+const topActionsStore = useTopActionsStore();
 
 // Data fetching and loading states
 const isLoading = ref(false); // Indicates if main people data is being loaded

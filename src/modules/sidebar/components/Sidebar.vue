@@ -35,16 +35,41 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useSidebarStore } from '../store/useSidebar.store'; // Adjust path as needed
 // import { useRoute } from 'vue-router';
+import { useDisplay } from 'vuetify';
 
 // Reactive data properties
 const drawer = ref(true); // Controls the visibility of the navigation drawer
 
-// Initialize the Pinia store
+// Initialize the Pinia store for sidebar state management
 const sidebarStore = useSidebarStore();
 
-// Get access to the current route object from Vue Router
-// const route = useRoute();
+// Get Vuetify's reactive breakpoint indicator for medium screens and below
+const { mdAndDown } = useDisplay();
+
+/**
+ * Checks the current screen size and toggles the sidebar rail mode if needed.
+ * @param isMdOrSmaller - True if the screen width is medium or smaller
+ */
+const checkScreenSize = (isMdOrSmaller: boolean) => {
+  if (isMdOrSmaller) {
+    // If not already in rail mode, toggle it on for smaller screens
+    if (!sidebarStore.isRail) {
+      sidebarStore.toggleRail();
+    }
+  }
+};
+
+// Run the check once when the component is mounted to apply initial state
+onMounted(() => {
+  checkScreenSize(mdAndDown.value);
+});
+
+// Watch for changes in the screen size and react accordingly
+watch(mdAndDown, (isMdOrSmaller) => {
+  checkScreenSize(isMdOrSmaller);
+})
+
 </script>

@@ -1,5 +1,5 @@
 import { fetchApi } from "../../core/utils/apiClient.util";
-
+import { ApiResource } from '../../core/enums/ApiResources';
 /**
  * Fetches a list of planets from the Star Wars API.
  * This function utilizes a generic API client to make the request.
@@ -9,5 +9,5 @@ export async function getPlanets() {
   // Calls the generic fetchApi utility with the 'planets' endpoint.
   // The fetchApi function is expected to handle the actual HTTP request
   // and potential JSON parsing.
-  return fetchApi('planets');
+  return fetchApi(ApiResource.Planets);
 }

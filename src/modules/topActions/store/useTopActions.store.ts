@@ -8,12 +8,14 @@ export const useTopActionsStore = defineStore('topActionsStore', () => {
     const vuetifyTheme = useTheme();
 
     // --- State for Dark Mode ---
-    // Initialize based on current Vuetify theme or a sensible default
-    const isDark = ref(vuetifyTheme.global.current.value.dark);
+    // Load the initial value from localStorage if it exists
+    const savedDark = localStorage.getItem('topActions_isDark');
+    const isDark = ref(savedDark !== null ? savedDark === 'true' : vuetifyTheme.global.current.value.dark);
 
     // Watch for changes in isDark and update Vuetify theme accordingly
     watch(isDark, (newValue) => {
         vuetifyTheme.global.name.value = newValue ? 'dark' : 'light';
+        localStorage.setItem('topActions_isDark', newValue.toString());
     }, { immediate: true }); // 'immediate' ensures the watcher runs on store initialization
 
     /**
