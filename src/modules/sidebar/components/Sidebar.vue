@@ -3,7 +3,10 @@
     <v-list>
       <v-list-item class="pl-1">
         <template #prepend>
-          <v-btn icon variant="text" @click="sidebarStore.toggleRail">
+          <v-btn aria-label="Toggle sidebar mode" icon variant="text" @click="sidebarStore.toggleRail">
+            <v-tooltip activator="parent" location="bottom">
+              Toggle sidebar mode
+            </v-tooltip>
             <v-icon>mdi-menu</v-icon>
           </v-btn>
         </template>
@@ -15,21 +18,13 @@
     </v-list>
 
     <v-list density="compact" nav>
-      <v-list-item
-        :active="$route.path === '/people' ? true: false"
-        :color="$route.path === '/people' ? 'primary' : undefined"
-        prepend-icon="mdi-account-circle"
-        title="People"
-        @click="$router.push('/')"
-      />
+      <v-list-item :active="$route.path === '/people' ? true : false"
+        :color="$route.path === '/people' ? 'primary' : undefined" prepend-icon="mdi-account-circle" title="People"
+        @click="$router.push('/')" />
       <v-divider></v-divider>
-      <v-list-item
-        :active="$route.path === '/planets' ? true: false"
-        :color="$route.path === '/planets' ? 'primary' : undefined"
-        prepend-icon="mdi-earth"
-        title="Planets"
-        @click="$router.push('/planets')"
-      />
+      <v-list-item :active="$route.path === '/planets' ? true : false"
+        :color="$route.path === '/planets' ? 'primary' : undefined" prepend-icon="mdi-earth" title="Planets"
+        @click="$router.push('/planets')" />
     </v-list>
   </v-navigation-drawer>
 </template>

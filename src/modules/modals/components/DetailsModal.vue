@@ -6,6 +6,9 @@
         {{ props.item?.name || props.item?.title || 'Item Details' }}
         <v-spacer></v-spacer>
         <v-btn icon variant="text" @click="dialogVisible = false" aria-label="Close dialog">
+          <v-tooltip activator="parent" location="bottom">
+            Close dialog
+          </v-tooltip>
           <v-icon color="grey darken-1">mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -158,4 +161,3 @@ function getIconForKey(key: string): string {
   return icons[formattedKey] || 'mdi-information-outline';
 }
 </script>
-

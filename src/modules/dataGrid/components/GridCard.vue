@@ -1,6 +1,6 @@
 <template>
   <v-card class="ma-2" variant="outlined" style="cursor: pointer;">
-    <v-card-title class="pb-0">
+    <v-card-title class="pb-0" :aria-label="`View details for ${item.name}`">
       {{ item.name }}
     </v-card-title>
     <v-card-subtitle>

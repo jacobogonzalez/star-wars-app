@@ -8,7 +8,7 @@
       <Alert message="Error Loading Film" type="error" />
     </v-card>
 
-    <v-card v-if="randomFilm">
+    <v-card v-if="randomFilm && !isLoading">
       <v-row>
         <v-col cols="12" sm="4" md="3" class="d-flex flex-column justify-center align-center pa-2">
           <v-img :src="getPosterUrl(randomFilm.title)" cover width="100%" max-height="150" class="rounded-lg"></v-img>
@@ -32,7 +32,7 @@
       </v-row>
     </v-card>
 
-    <v-alert v-else type="info" title="No Film Data" text="No Star Wars film data is available to display."
+    <v-alert v-if="!isLoading && !randomFilm" type="info" title="No Film Data" text="No Star Wars film data is available to display."
       variant="tonal" class="text-center"></v-alert>
   </div>
 </template>
