@@ -1,4 +1,4 @@
-const BASE_API_PATH = 'https://swapi.info/api/'; // Base URL for the Star Wars API.
+const BASE_API_PATH = import.meta.env.VITE_BASE_API_PATH;
 
 /**
  * Fetches data from the Star Wars API.

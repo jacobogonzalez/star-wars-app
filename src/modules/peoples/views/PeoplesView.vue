@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column h-100 pa-4">
     <HeaderWithViewToggle title="Peoples" />
-    <v-card v-if="error" height="100px">
+    <v-card v-if="error" height="100px" class="mb-2">
       <Alert :message="`Error: ${error}`" type="error" />
     </v-card>
 

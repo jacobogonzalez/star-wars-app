@@ -4,7 +4,7 @@
       <v-skeleton-loader  type="card"></v-skeleton-loader>
     </v-card>
 
-    <v-card v-if="error" height="100px">
+    <v-card v-if="error" height="100px" class="mb-2">
       <Alert message="Error Loading Film" type="error" />
     </v-card>
 
